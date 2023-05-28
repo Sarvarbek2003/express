@@ -59,23 +59,24 @@ function Server (req:any, res:any) {
 	}
 
 	if(handlers[requestUrl]) {
-		if(method === MethodTypes.post) {
+		if(handlers[requestUrl][MethodTypes.use]){
+			handlers[requestUrl][MethodTypes.use](req, res)
+        }
+		else if(method === MethodTypes.post) {
 			POST(req, (newReq:any)=> {
                 return handlers[requestUrl][method](newReq, res)
             })
-		} else if (method === MethodTypes.put){
+		} else if (method === MethodTypes.put && handlers[requestUrl]){
             PUT(req,  (newReq:any)=> {
                 return handlers[requestUrl][method](newReq, res)
             })
-        } else if (method === MethodTypes.delete){
+        } else if (method === MethodTypes.delete && handlers[requestUrl]){
             DELETE(req, (newReq:any)=> {
                 return handlers[requestUrl][method](newReq, res)
             })
         } else if (method === MethodTypes.get && handlers[requestUrl][method]){
             return handlers[requestUrl][method](req, res)
-        } else {
-            return handlers[requestUrl][MethodTypes.use](req, res)
-        }
+		}
 
 	} else {
 		return res.end(`Cannot ${method} ${requestUrl}`)

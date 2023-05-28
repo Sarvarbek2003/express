@@ -41,8 +41,8 @@ app.post('/path', (req:any, res:any)=>{
     console.log('post => params: ', params);
     console.log('post => query: ', query);
     console.log('post => body: ', body);
-    res.send('salom')
-    res.status(200).json({'status':200, "message":"OK"})
+    // res.send('salom')
+    res.status(200).json({status:200, message:"OK"})
 })
 
 app.put('/path/:id', (req:any, res:any)=>{
