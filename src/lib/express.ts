@@ -11,12 +11,12 @@ let globalVariables:any = {}
 
 function Server (req:any, res:any) {
     
-	let queryString = qs.parse(url.parse(req.url).query || '')
-	let requestUrl = url.parse(req.url).pathname!.toLowerCase()
-	let method = req.method!.toUpperCase()
+    let queryString = qs.parse(url.parse(req.url).query || '')
+    let requestUrl = url.parse(req.url).pathname!.toLowerCase() 
+    let method = req.method!.toUpperCase()
     console.log(method);
     
-	req.query = queryString || {}
+    req.query = queryString || {}
 
     let {params, reqUrl} = paramsParser(handlers, requestUrl)
     console.log(params, reqUrl);
@@ -25,7 +25,7 @@ function Server (req:any, res:any) {
     req.params = params
 
 	res.json = function (data: object) {
-        if(typeof data !== 'object') throw TypeError('The parameter being included in the response is not in object')
+	if(typeof data !== 'object') throw TypeError('The parameter being included in the response is not in object')
 		res.setHeader('Content-Type', ContentTypes.json)
 		return res.end(JSON.stringify(data))
 	}
@@ -38,9 +38,9 @@ function Server (req:any, res:any) {
             res.setHeader('Content-Type', ContentTypes.textHtml)
             return res.end(data)
         }
-	}
+   }
     
-	res.sendFile = function (pathname:string) {
+   res.sendFile = function (pathname:string) {
         const extname = path.extname(pathname)
         const contentType = ContentExtnames[extname] || 'application/octet-stream'
         const pathExists = fs.existsSync(path.join(globalVariables['static'] || '', pathname))
@@ -51,12 +51,12 @@ function Server (req:any, res:any) {
 		return res.end(
 			fs.readFileSync(path.join(globalVariables['static'], pathname))
 		)
-	}
+    }
 
     res.status = function (status:number) {
-		res.statusCode = status
+        res.statusCode = status
         return res
-	}
+    }
 
 	if(handlers[requestUrl]) {
 		if(method === MethodTypes.post) {
