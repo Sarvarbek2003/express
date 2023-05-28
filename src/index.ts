@@ -7,12 +7,16 @@ const app = new express()
 app.set('static', path.join(process.cwd(), 'files'))
 
 app.use('/', (req:any, res:any) => {
+    let headers = req.headers
+    console.log('get => headers: ', headers);
     res.sendFile('express.png')
 })
 
 app.get('/path', (req:any, res:any)=>{
+    let headers = req.headers
     let params = req.params
     let query = req.query
+    console.log('get => headers: ', headers);
     console.log('get => params: ', params);
     console.log('get => query: ', query);
     // res.send('salom')
