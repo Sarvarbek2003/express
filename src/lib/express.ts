@@ -10,17 +10,17 @@ let handlers:any = {}
 let globalVariables:any = {}
 
 function Server (req:any, res:any) {
-    
+
     let queryString = qs.parse(url.parse(req.url).query || '')
     let requestUrl = url.parse(req.url).pathname!.toLowerCase() 
     let method = req.method!.toUpperCase()
     console.log(method);
-    
+
     req.query = queryString || {}
 
     let {params, reqUrl} = paramsParser(handlers, requestUrl)
     console.log(params, reqUrl);
-    
+
     requestUrl = reqUrl
     req.params = params
 
@@ -39,7 +39,7 @@ function Server (req:any, res:any) {
             return res.end(data)
         }
    }
-    
+
    res.sendFile = function (pathname:string) {
         const extname = path.extname(pathname)
         const contentType = ContentExtnames[extname] || 'application/octet-stream'
@@ -76,7 +76,6 @@ function Server (req:any, res:any) {
         } else {
             return handlers[requestUrl][MethodTypes.use](req, res)
         }
-
 	} else {
 		return res.end(`Cannot ${method} ${requestUrl}`)
 	}
@@ -93,7 +92,7 @@ class express  {
     public set(key:string, value: string) {
 		globalVariables[key] = value
 	}
-    
+
     public get = function (path:string, callbackHandler:Function) {
 		handlers[path.toLowerCase()] = handlers[path.toLowerCase()] || {}
 		handlers[path.toLowerCase()][MethodTypes.get] = callbackHandler
