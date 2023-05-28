@@ -60,7 +60,7 @@ function Server (req:any, res:any) {
 
 	if(handlers[requestUrl]) {
 		if(handlers[requestUrl][MethodTypes.use]){
-			handlers[requestUrl][MethodTypes.use](req, res)
+        	return handlers[requestUrl][MethodTypes.use](req, res)
         }
 		else if(method === MethodTypes.post) {
 			POST(req, (newReq:any)=> {
