@@ -8,13 +8,13 @@ DELETE
 
 ## Installation
 
-```bash
+```cmd
 $ npm install
 ```
 
 ## Running the app
 
-```bash
+```cmd
 # production mode
 
 $ npm start
